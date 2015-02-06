@@ -10,8 +10,18 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	<name>Upload artifact to AWS S3</name>
+	<inceptionYear>2015</inceptionYear>
+	<scm>
+		<connection>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</developerConnection>
+		<url>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</url>
+	</scm>
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/taimos/s3upload-maven-plugin/issues</url>
+	</issueManagement>
 	<build>
-		<finalName>daemon-maven-plugin</finalName>
+		<finalName>s3upload-maven-plugin</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
