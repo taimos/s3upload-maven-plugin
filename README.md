@@ -1,5 +1,7 @@
 # S3 Upload Plugin for Maven
 
+[![Build Status](https://travis-ci.org/taimos/s3upload-maven-plugin.png?branch=master)](https://travis-ci.org/taimos/s3upload-maven-plugin)
+
 Uploads the given artifact to an S3 bucket using the default credentials 
 
 ```
