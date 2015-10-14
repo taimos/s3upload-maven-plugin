@@ -6,7 +6,7 @@
 		<version>5</version>
 	</parent>
 	<artifactId>s3upload-maven-plugin</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<packaging>maven-plugin</packaging>
 	<name>Upload artifact to AWS S3</name>
 	<inceptionYear>2015</inceptionYear>
@@ -14,7 +14,7 @@
 		<connection>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</connection>
 		<developerConnection>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</developerConnection>
 		<url>scm:git:git@github.com:taimos/s3upload-maven-plugin.git</url>
-	  <tag>HEAD</tag>
+	  <tag>v0.2</tag>
   </scm>
 	<issueManagement>
 		<system>github</system>
