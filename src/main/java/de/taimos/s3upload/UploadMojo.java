@@ -28,6 +28,8 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 @Mojo(name = "upload")
@@ -36,8 +38,8 @@ public class UploadMojo extends AbstractMojo {
 	/**
 	 * the artifact to uplaod
 	 */
-	@Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}.jar", property = "artifact", required = true)
-	protected String artifact;
+	@Parameter(defaultValue = "${project.build.directory}/${project.build.finalName}.${project.packaging}", property = "artifact", required = true)
+	protected File artifact;
 	
 	/**
 	 * the target bucket
@@ -48,21 +50,32 @@ public class UploadMojo extends AbstractMojo {
 	/**
 	 * the target name
 	 */
-	@Parameter(defaultValue = "${project.build.finalName}.jar", property = "targetName", required = true)
+	@Parameter(defaultValue = "${project.build.finalName}.${project.packaging}", property = "targetName", required = true)
 	protected String targetName;
+
+	/**
+	 * the bucket's region
+	 */
+	@Parameter(property = "region")
+	protected String region;
 	
 	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		File artifactFile = new File(this.artifact);
-		if (!artifactFile.exists()) {
+		if (!this.artifact.exists()) {
 			throw new MojoExecutionException("artifact does not exist: " + this.artifact);
 		}
 		
 		this.getLog().info("Uploading artifact " + this.artifact + " to AWS S3 s3://" + this.bucket + "/" + this.targetName);
 		
 		AmazonS3Client s3 = new AmazonS3Client();
-		s3.putObject(this.bucket, this.targetName, artifactFile);
+		if (this.region != null) {
+			s3.setRegion(Region.getRegion(Regions.fromName(this.region)));
+		}
+		if (!s3.doesBucketExist(this.bucket)) {
+			throw new MojoExecutionException("bucket does not exist: " + this.bucket);
+		}
+		s3.putObject(this.bucket, this.targetName, this.artifact);
 		
 		this.getLog().info("Upload done");
 	}
